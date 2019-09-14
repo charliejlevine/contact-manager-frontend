@@ -1,0 +1,11 @@
+<div class="row">
+
+  <div class="col-12">
+    <h1 class="text-center">Contacts</h1>
+  </div>
+
+  <div *ngFor="let contact of contacts" class="col-6 card-deck">
+    <app-contact [contact]=contact></app-contact>
+  </div>
+
+</div>
