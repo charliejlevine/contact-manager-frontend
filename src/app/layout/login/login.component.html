@@ -2,31 +2,78 @@
   <div class="col-sm-9 col-md-7 col-lg-5 mx-auto">
     <div class="card card-signin my-5">
       <div class="card-body">
-        <h5 class="card-title text-center">Sign In</h5>
-        <form class="form-signin">
+
+        <h5 class="card-title text-center">{{title}}</h5>
+
+        <p class="text-danger mb-1 ml-4">{{error}}</p>
+
+        <form *ngIf="!isSignUp" #signInForm="ngForm" class="form-signin" (submit)="login()">
+
           <div class="form-label-group">
-            <input type="text" id="inputUsername" class="form-control" placeholder="Username" required autofocus>
+            <input type="text" name="username" [(ngModel)]="loginInfo.username" id="inputUsername" class="form-control"
+              placeholder="Username" required autofocus>
             <label for="inputUsername">Username</label>
           </div>
 
           <div class="form-label-group">
-            <input type="password" id="inputPassword" class="form-control" placeholder="Password" required>
+            <input type="password" name="password" [(ngModel)]="loginInfo.password" id="inputPassword"
+              class="form-control" placeholder="Password" required>
             <label for="inputPassword">Password</label>
           </div>
 
           <div class="custom-control custom-checkbox mb-3">
-            <input type="checkbox" class="custom-control-input" id="customCheck1">
-            <label class="custom-control-label" for="customCheck1">Remember password</label>
+            <input type="checkbox" class="custom-control-input" id="checkbox">
+            <label class="custom-control-label" for="checkbox">Remember me</label>
           </div>
-          <button [routerLink]="['/home']" routerLinkActive="router-link-active"  class="btn btn-lg btn-login btn-block text-uppercase" type="submit">
+
+          <button type="submit" [disabled]="disableLogin" class="btn btn-lg btn-login btn-block text-uppercase">
             <i class="fa fa-sign-in mr-2"></i> Sign in
           </button>
+
           <hr class="my-4">
-          <button class="btn btn-lg btn-login btn-block text-uppercase" type="button">
-            <i class="fa fa-plus mr-2"></i> Sign up
+
+          <button type="button" (click)="isSignUp = true; title = 'Register'"
+            class="btn btn-lg btn-login btn-block text-uppercase">
+            <i class="fa fa-user-plus mr-2"></i> Sign up
           </button>
+
         </form>
+
+        <form *ngIf="isSignUp" #signUpForm="ngForm" class="form-signin" (submit)="register()">
+
+          <div class="form-label-group">
+            <input type="text" name="username" [(ngModel)]="registerInfo.username" id="registerUsername"
+              class="form-control" placeholder="Username" required autofocus>
+            <label for="registerUsername">Username</label>
+          </div>
+
+          <div class="form-label-group">
+            <input type="password" name="password" [(ngModel)]="registerInfo.password" id="registerPassword"
+              class="form-control" placeholder="Password" required>
+            <label for="registerPassword">Password</label>
+          </div>
+
+          <div class="form-label-group">
+            <input type="email" name="email" [(ngModel)]="registerInfo.email" id="registerEmail"
+              class="form-control" placeholder="Password" required email>
+            <label for="registerEmail">Email</label>
+          </div>
+
+          <button type="submit" [disabled]="disableLogin" class="btn btn-lg btn-login btn-block text-uppercase">
+            <i class="fa fa-plus mr-2"></i> Register
+          </button>
+
+          <hr class="my-4">
+
+          <button type="button" (click)="isSignUp = false; title = 'Sign In'"
+            class="btn btn-lg btn-login btn-block text-uppercase">
+            <i class="fa fa-undo mr-2"></i> Back
+          </button>
+
+        </form>
+
       </div>
+
     </div>
   </div>
 </div>
