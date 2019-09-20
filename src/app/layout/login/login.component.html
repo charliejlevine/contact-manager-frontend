@@ -5,7 +5,7 @@
 
         <h5 class="card-title text-center">{{title}}</h5>
 
-        <p class="text-danger mb-1 ml-4">{{error}}</p>
+        <p class="text-danger mb-1 ml-4">{{displayedError}}</p>
 
         <form *ngIf="!isSignUp" #signInForm="ngForm" class="form-signin" (submit)="login()">
 
@@ -22,7 +22,7 @@
           </div>
 
           <div class="custom-control custom-checkbox mb-3">
-            <input type="checkbox" class="custom-control-input" id="checkbox">
+            <input type="checkbox" name="rememberMe" [(ngModel)]="rememberMe" class="custom-control-input" id="checkbox">
             <label class="custom-control-label" for="checkbox">Remember me</label>
           </div>
 
@@ -32,7 +32,7 @@
 
           <hr class="my-4">
 
-          <button type="button" (click)="isSignUp = true; title = 'Register'"
+          <button type="button" [disabled]="disableLogin" (click)="toSignUp()"
             class="btn btn-lg btn-login btn-block text-uppercase">
             <i class="fa fa-user-plus mr-2"></i> Sign up
           </button>
@@ -55,17 +55,17 @@
 
           <div class="form-label-group">
             <input type="email" name="email" [(ngModel)]="registerInfo.email" id="registerEmail"
-              class="form-control" placeholder="Password" required email>
+              class="form-control" placeholder="Password" required>
             <label for="registerEmail">Email</label>
           </div>
 
-          <button type="submit" [disabled]="disableLogin" class="btn btn-lg btn-login btn-block text-uppercase">
+          <button type="submit" [disabled]="disableRegister" class="btn btn-lg btn-login btn-block text-uppercase">
             <i class="fa fa-plus mr-2"></i> Register
           </button>
 
           <hr class="my-4">
 
-          <button type="button" (click)="isSignUp = false; title = 'Sign In'"
+          <button type="button" (click)="toSignIn()"
             class="btn btn-lg btn-login btn-block text-uppercase">
             <i class="fa fa-undo mr-2"></i> Back
           </button>
