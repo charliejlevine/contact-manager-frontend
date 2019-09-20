@@ -9,16 +9,16 @@ export class ContactManagerComponent implements OnInit {
 
   contacts = [
     {
-      name: 'Charlie'
+      name: 'Charlie Levine'
     },
     {
-      name: 'Jeremy'
+      name: 'Jeremy Dantes'
     },
     {
-      name: 'Mark'
+      name: 'Mark Trinidad'
     },
     {
-      name: 'Nelson'
+      name: 'Nelson Torres'
     }
   ];
   constructor() { }
