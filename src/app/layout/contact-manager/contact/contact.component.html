@@ -1,8 +1,23 @@
-<div class="card">
-  <img src="assets/images/default-contact-image.png" class="card-img-top" alt="...">
-  <div class="card-body">
-    <h5 class="card-title">Card title</h5>
-    <p class="card-text">Name: {{contact.name}}</p>
-    <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
-  </div>
-</div>
+<link href="//netdna.bootstrapcdn.com/bootstrap/3.1.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+<script src="//netdna.bootstrapcdn.com/bootstrap/3.1.0/js/bootstrap.min.js"></script>
+<script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
+
+ <div>
+    <ul class="list-group" id="contact-list">
+        <li class="list-group-item">
+            <div class="col-xs-12 col-sm-3">
+                <img src="assets/images/default-contact-image.png" class="img-responsive img-circle" />
+            </div>
+            <div class="col-xs-12 col-sm-9">
+                <span class="name">{{contact.name}}</span><br/>
+                <span class="glyphicon glyphicon-map-marker text-muted c-info" data-toggle="tooltip" title="5842 Hillcrest Rd"></span>
+                <span class="visible-xs"> <span class="text-muted">5842 Hillcrest Rd</span><br/></span>
+                <span class="glyphicon glyphicon-earphone text-muted c-info" data-toggle="tooltip" title="(870) 288-4149"></span>
+                <span class="visible-xs"> <span class="text-muted">(870) 288-4149</span><br/></span>
+                <span class="fa fa-comments text-muted c-info" data-toggle="tooltip" title="scott.stevens@example.com"></span>
+                <span class="visible-xs"> <span class="text-muted">scott.stevens@example.com</span><br/></span>
+            </div>
+            <div class="clearfix"></div>
+        </li>
+    </ul>
+ </div>
