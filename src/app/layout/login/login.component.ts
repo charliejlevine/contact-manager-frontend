@@ -1,7 +1,6 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
 import { NgForm } from '@angular/forms';
-import { CookieService } from 'ngx-cookie-service';
 import { AuthService } from 'src/app/services/auth.service';
 import { LoginInfo, RegisterInfo } from './login.model';
 
@@ -37,12 +36,15 @@ export class LoginComponent implements OnInit {
   };
 
   constructor(private router: Router,
-              private authService: AuthService,
-              private cookieService: CookieService) { }
+              private authService: AuthService) { }
 
   ngOnInit() {
-    const cookieUser = this.cookieService.get('user');
-    this.loginInfo = cookieUser ? JSON.parse(cookieUser) : this.loginInfo;
+    this.authService.test()
+      .subscribe((test) => {
+        console.log(test);
+      });
+    const storedUser = localStorage.getItem('user');
+    this.loginInfo = storedUser ? JSON.parse(storedUser) : this.loginInfo;
   }
 
   toSignUp() {
@@ -68,11 +70,11 @@ export class LoginComponent implements OnInit {
     }
     this.authService.login(this.loginInfo)
       .subscribe(isLoginValid => {
-        if (this.rememberMe) {
-          const cookieUser = JSON.stringify(this.loginInfo);
-          this.cookieService.set('user', cookieUser);
-        }
         if (isLoginValid) {
+          if (this.rememberMe) {
+            const storedUser = JSON.stringify(this.loginInfo);
+            localStorage.setItem('user', storedUser);
+          }
           this.router.navigate(['/home']);
         } else {
           this.displayedError = this.error.invalidLogin;
@@ -91,8 +93,9 @@ export class LoginComponent implements OnInit {
       this.displayedError = '';
     }
     this.authService.register(this.registerInfo)
-      .subscribe(isEmailValid => {
-        if (isEmailValid) {
+      .subscribe(res => {
+        if (true) {
+          console.log(res);
           this.verifyEmail();
         } else {
           this.displayedError = this.error.invalidEmail;

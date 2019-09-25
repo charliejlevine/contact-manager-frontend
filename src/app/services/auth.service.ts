@@ -21,8 +21,7 @@ export class AuthService {
   }
 
   register(registerInfo: RegisterInfo) {
-    const isEmailValid = registerInfo.email === 'test';
-    return of(isEmailValid);
+    return this.http.put(`${this.url}/api/user`, registerInfo);
   }
 
   test() {

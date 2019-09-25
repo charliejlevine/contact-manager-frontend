@@ -10,7 +10,6 @@ import { ContactManagerComponent } from './layout/contact-manager/contact-manage
 import { ContactComponent } from './layout/contact-manager/contact/contact.component';
 import { AuthService } from './services/auth.service';
 import { ContactManagerService } from './services/contact-manager.service';
-import { CookieService } from 'ngx-cookie-service';
 
 @NgModule({
   declarations: [
@@ -25,7 +24,7 @@ import { CookieService } from 'ngx-cookie-service';
     FormsModule,
     HttpClientModule
   ],
-  providers: [AuthService, ContactComponent, CookieService],
+  providers: [AuthService, ContactComponent],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
