@@ -1,9 +1,25 @@
-<div class="card card-default" id="card_contacts">
-    <div id="contacts" class="panel-collapse collapse show">
-        <ul class="list-group pull-down" id="contact-list">
-            <li *ngFor="let contact of contacts" class="list-group-item">
-                <app-contact [contact]="contact"></app-contact>
-            </li>
-        </ul>
+<div class="row">
+    <div class="col">
+        <h1>Knights Contacts</h1>
     </div>
+    <div class="col d-flex align-items-center justify-content-end">
+        <button type="button" class="btn btn-outline-primary mx-1">
+            <i class="fa fa-plus"></i>
+        </button>
+    </div>
+</div>
+<div class="input-group mb-3">
+    <div class="input-group-prepend">
+        <span class="input-group-text">
+            <i class="fa fa-search"></i>
+        </span>
+    </div>
+    <input type="text" class="form-control" placeholder="Search Contacts...">
+</div>
+<div class="card">
+    <ul class="list-group pull-down" id="contact-list">
+        <li *ngFor="let contact of contacts" class="list-group-item">
+            <app-contact [contact]="contact"></app-contact>
+        </li>
+    </ul>
 </div>
