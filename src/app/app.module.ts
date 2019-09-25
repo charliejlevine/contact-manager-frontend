@@ -10,6 +10,7 @@ import { ContactManagerComponent } from './layout/contact-manager/contact-manage
 import { ContactComponent } from './layout/contact-manager/contact/contact.component';
 import { AuthService } from './services/auth.service';
 import { ContactManagerService } from './services/contact-manager.service';
+import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
 
 @NgModule({
   declarations: [
@@ -22,7 +23,8 @@ import { ContactManagerService } from './services/contact-manager.service';
     BrowserModule,
     AppRoutingModule,
     FormsModule,
-    HttpClientModule
+    HttpClientModule,
+    NgbModule
   ],
   providers: [AuthService, ContactComponent],
   bootstrap: [AppComponent]
