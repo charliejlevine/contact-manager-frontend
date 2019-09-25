@@ -3,6 +3,7 @@
         <img src="assets/images/default-contact-image.png" height="120" width="120"
             class="rounded-circle mx-auto d-block img-fluid">
     </div>
+
     <div class="col-12 col-sm-6 col-md-9 text-center text-sm-left">
         <label class="name lead">{{contact.name}}</label>
         <br>
@@ -18,6 +19,14 @@
         <span class="text-muted small text-truncate">{{contact.email}}</span>
     </div>
 </div>
+
+<button type="button" class="btn btn-outline-primary mx-1" style="float: right;">
+  <i class="fa fa-trash" aria-hidden="true"></i>
+</button>
+
+<button type="button" class="btn btn-outline-primary mx-1" style="float: right;">
+  <i class="fa fa-pencil" aria-hidden="true"></i>
+</button>
 
 <ng-template #content let-modal>
     <div class="modal-header">
