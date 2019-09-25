@@ -1,21 +1,26 @@
 <div class="row w-100">
     <div class="col-12 col-sm-6 col-md-3 px-0">
-        <img src="http://demos.themes.guide/bodeo/assets/images/users/m101.jpg" alt="Mike Anamendolla"
+        <img src="assets/images/default-contact-image.png" height="120" width="120"
             class="rounded-circle mx-auto d-block img-fluid">
     </div>
     <div class="col-12 col-sm-6 col-md-9 text-center text-sm-left">
-        <span class="fa fa-mobile fa-2x text-success float-right pulse" title="online now"></span>
         <label class="name lead">{{contact.name}}</label>
         <br>
         <span class="fa fa-map-marker fa-fw text-muted" data-toggle="tooltip" title=""
-            data-original-title="5842 Hillcrest Rd"></span>
-        <span class="text-muted">5842 Hillcrest Rd</span>
+            data-original-title="address"></span>
+        <span class="text-muted">{{contact.address}}</span>
         <br>
         <span class="fa fa-phone fa-fw text-muted" data-toggle="tooltip" title=""
-            data-original-title="(870) 288-4149"></span>
-        <span class="text-muted small">(870) 288-4149</span>
+            data-original-title="phone"></span>
+        <span class="text-muted small">{{contact.phone}}</span>
         <br>
         <span class="fa fa-envelope fa-fw text-muted" data-toggle="tooltip" data-original-title="" title=""></span>
-        <span class="text-muted small text-truncate">mike.ana@example.com</span>
+        <span class="text-muted small text-truncate">{{contact.email}}</span>
     </div>
 </div>
+<button type="button" class="btn btn-outline-primary mx-1" style="float: right;">
+    <i class="fa fa-trash" aria-hidden="true"></i>
+</button>
+<button type="button" class="btn btn-outline-primary mx-1" style="float: right;">
+    <i class="fa fa-pencil" aria-hidden="true"></i>
+</button>
