@@ -36,10 +36,9 @@ export class ContactComponent implements OnChanges {
   open(modal) {
     this.modalService.open(modal).result
       .then((result) => {
-        if (result === 'edit') { this.resetEditForm(); }
-        this.saveContact();
+        result === 'edit' ? this.saveContact() : this.deleteContact();
       }, (reason) => {
-        reason === 'edit' ? this.resetEditForm() : this.deleteContact();
+        if (reason === 'edit') { this.resetEditForm(); }
       });
   }
 
@@ -58,6 +57,6 @@ export class ContactComponent implements OnChanges {
   }
 
   deleteContact() {
-    //
+    console.log('delete');
   }
 }
