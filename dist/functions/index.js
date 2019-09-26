@@ -1,12 +1,6 @@
-"use strict";
-
-const { init } = require("./dist/index");
-const functions = require("firebase-functions");
-const express = require("express");
-
-const app = express()
-
-init(app, express.Router());
+const functions = require('firebase-functions');
+const express = require('express');
+const app = express();
 
 app.get('/api/helloworld', (req, res) => {
     res.json({
@@ -14,4 +8,4 @@ app.get('/api/helloworld', (req, res) => {
     });
 });
 
-exports.expressApp = functions.https.onRequest(app);
+exports.app = functions.https.onRequest(app);
