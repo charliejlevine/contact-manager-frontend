@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Observable, Subject, of } from 'rxjs';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { LoginInfo, RegisterInfo } from '../layout/login/login.model';
 
 @Injectable({
@@ -21,6 +21,6 @@ export class AuthService {
   }
 
   helloworld() {
-    return this.http.get(`${this.url}/helloworld`);
+    return this.http.get(`${this.url}/api/helloworld`);
   }
 }
