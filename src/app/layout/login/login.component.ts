@@ -3,6 +3,7 @@ import { Router } from '@angular/router';
 import { NgForm } from '@angular/forms';
 import { AuthService } from 'src/app/services/auth.service';
 import { LoginInfo, RegisterInfo } from './login.model';
+import { finalize } from 'rxjs/operators';
 
 @Component({
   selector: 'app-login',
@@ -23,12 +24,15 @@ export class LoginComponent implements OnInit {
     password: '',
     email: ''
   };
-  title = 'Sign In';
-  displayedError = '';
-  disableLogin = false;
-  disableRegister = false;
+  isLoading = false;
   isSignUp = false;
   rememberMe = false;
+  displayedTitle = '';
+  displayedError = '';
+  title = {
+    signIn: 'Sign In',
+    register: 'Register'
+  };
   error = {
     invalidForm: 'Please fill in all fields',
     invalidLogin: 'Invalid Login',
@@ -39,73 +43,77 @@ export class LoginComponent implements OnInit {
               private authService: AuthService) { }
 
   ngOnInit() {
-    this.authService.test()
-      .subscribe((test) => {
-        console.log(test);
-      });
+    this.displayedTitle = this.title.signIn;
     const storedUser = localStorage.getItem('user');
     this.loginInfo = storedUser ? JSON.parse(storedUser) : this.loginInfo;
+    this.authService.helloworld()
+      .subscribe((test: {message: string}) => {
+        this.displayedTitle = test.message;
+      });
   }
 
   toSignUp() {
     this.isSignUp = true;
-    this.title = 'Register';
+    this.displayedTitle = this.title.register;
     this.displayedError = '';
   }
 
   toSignIn() {
     this.isSignUp = false;
-    this.title = 'Sign In';
+    this.displayedTitle = this.title.signIn;
     this.displayedError = '';
   }
 
   login() {
-    this.disableLogin = true;
+    this.isLoading = true;
     if (!this.signInForm.valid) {
       this.displayedError = this.error.invalidForm;
-      this.disableLogin = false;
+      this.isLoading = false;
       return;
     } else {
       this.displayedError = '';
     }
     this.authService.login(this.loginInfo)
-      .subscribe(isLoginValid => {
-        if (isLoginValid) {
-          if (this.rememberMe) {
-            const storedUser = JSON.stringify(this.loginInfo);
-            localStorage.setItem('user', storedUser);
-          }
-          this.router.navigate(['/home']);
-        } else {
-          this.displayedError = this.error.invalidLogin;
+      .pipe(
+        finalize(() => {
+          this.isLoading = false;
+        })
+      )
+      .subscribe(() => {
+        if (this.rememberMe) {
+          const storedUser = JSON.stringify(this.loginInfo);
+          localStorage.setItem('user', storedUser);
         }
-        this.disableLogin = false;
+        this.router.navigate(['/home']);
+        this.isLoading = false;
+      }, error => {
+        this.displayedError = error.message;
       });
   }
 
   register() {
-    this.disableRegister = true;
+    this.isLoading = true;
     if (!this.signUpForm.valid) {
       this.displayedError = this.error.invalidForm;
-      this.disableRegister = false;
+      this.isLoading = false;
       return;
     } else {
       this.displayedError = '';
     }
     this.authService.register(this.registerInfo)
-      .subscribe(res => {
-        if (true) {
-          console.log(res);
-          this.verifyEmail();
-        } else {
-          this.displayedError = this.error.invalidEmail;
-        }
-        this.disableRegister = false;
+      .pipe(
+        finalize(() => {
+          this.isLoading = false;
+        })
+      )
+      .subscribe(() => {
+        this.isLoading = false;
+        this.isSignUp = false;
+        this.loginInfo.username = this.registerInfo.username;
+        this.loginInfo.password = this.registerInfo.password;
+      }, error => {
+        this.displayedError = error.message;
       });
-  }
-
-  verifyEmail() {
-    console.log('check your email');
   }
 
 }

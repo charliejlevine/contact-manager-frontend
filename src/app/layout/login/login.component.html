@@ -3,7 +3,7 @@
     <div class="card card-signin my-5">
       <div class="card-body">
 
-        <h5 class="card-title text-center"><b>{{title}}</b></h5>
+        <h5 class="card-title text-center"><b>{{displayedTitle}}</b></h5>
 
         <p class="text-danger mb-1 ml-4">{{displayedError}}</p>
 
@@ -26,13 +26,13 @@
             <label class="custom-control-label" for="checkbox">Remember me</label>
           </div>
 
-          <button type="submit" [disabled]="disableLogin" class="btn btn-lg btn-login btn-block text-uppercase">
+          <button type="submit" [disabled]="isLoading" class="btn btn-lg btn-login btn-block text-uppercase">
             <i class="fa fa-sign-in mr-2"></i> Sign in
           </button>
 
           <hr class="my-4">
 
-          <button type="button" [disabled]="disableLogin" (click)="toSignUp()"
+          <button type="button" [disabled]="isLoading" (click)="toSignUp()"
             class="btn btn-lg btn-login btn-block text-uppercase">
             <i class="fa fa-user-plus mr-2"></i> Sign up
           </button>
@@ -59,13 +59,13 @@
             <label for="registerEmail">Email</label>
           </div>
 
-          <button type="submit" [disabled]="disableRegister" class="btn btn-lg btn-login btn-block text-uppercase">
+          <button type="submit" [disabled]="isLoading" class="btn btn-lg btn-login btn-block text-uppercase">
             <i class="fa fa-plus mr-2"></i> Register
           </button>
 
           <hr class="my-4">
 
-          <button type="button" (click)="toSignIn()"
+          <button type="button" [disabled]="isLoading" (click)="toSignIn()"
             class="btn btn-lg btn-login btn-block text-uppercase">
             <i class="fa fa-undo mr-2"></i> Back
           </button>

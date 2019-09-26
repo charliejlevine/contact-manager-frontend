@@ -8,23 +8,19 @@ import { LoginInfo, RegisterInfo } from '../layout/login/login.model';
 })
 export class AuthService {
 
-  url = 'knightscontacts.com:3000';
+  url = 'https://knightscontacts.com';
 
   constructor(private http: HttpClient) { }
 
-  login(loginInfo: LoginInfo): Observable<boolean> {
-    let isLoginValid = false;
-    if (loginInfo.username === 'test') {
-      isLoginValid = true;
-    }
-    return of(isLoginValid);
+  login(loginInfo: LoginInfo) {
+    return this.http.put(`${this.url}/api/user/login`, loginInfo);
   }
 
   register(registerInfo: RegisterInfo) {
     return this.http.put(`${this.url}/api/user`, registerInfo);
   }
 
-  test() {
-    return this.http.get(`${this.url}/api/test`);
+  helloworld() {
+    return this.http.get(`${this.url}/helloworld`);
   }
 }
