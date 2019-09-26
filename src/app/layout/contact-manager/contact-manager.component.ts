@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { Contact } from './contact/contact.model';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
   selector: 'app-contact-manager',
@@ -33,9 +35,45 @@ export class ContactManagerComponent implements OnInit {
       address: '4000 Central Florida Blvd'
     }
   ];
-  constructor() { }
+
+  addContactForm: Contact = {
+    name: '',
+    email: '',
+    phone: '',
+    address: ''
+  };
+  modalTitle = {
+    addContact: 'Add Contact',
+    logout: 'Logout'
+  };
+
+  constructor(private modalService: NgbModal) { }
 
   ngOnInit() {
+  }
+
+  open(modal) {
+    this.modalService.open(modal).result
+      .then((result) => {
+        result === 'addContact' ? this.addContact() : this.logout();
+      }, (reason) => {
+        if (reason === 'addContact') { this.resetAddForm(); }
+      });
+  }
+
+  logout() {
+    console.log('logout');
+  }
+
+  addContact() {
+    console.log('add contact');
+  }
+
+  resetAddForm() {
+    this.addContactForm.name = '';
+    this.addContactForm.email = '';
+    this.addContactForm.phone = '';
+    this.addContactForm.address = '';
   }
 
 }
