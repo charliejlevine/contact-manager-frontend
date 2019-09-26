@@ -33,12 +33,13 @@ export class ContactComponent implements OnChanges {
     this.resetEditForm();
   }
 
-  open(editContact) {
-    this.modalService.open(editContact).result
+  open(modal) {
+    this.modalService.open(modal).result
       .then((result) => {
-        this.saveEditForm();
+        if (result === 'edit') { this.resetEditForm(); }
+        this.saveContact();
       }, (reason) => {
-        this.resetEditForm();
+        reason === 'edit' ? this.resetEditForm() : this.deleteContact();
       });
   }
 
@@ -49,10 +50,14 @@ export class ContactComponent implements OnChanges {
     this.editContact.address = this.contact.address;
   }
 
-  saveEditForm() {
+  saveContact() {
     this.contact.name = this.editContact.name;
     this.contact.email = this.editContact.email;
     this.contact.phone = this.editContact.phone;
     this.contact.address = this.editContact.address;
+  }
+
+  deleteContact() {
+    //
   }
 }
