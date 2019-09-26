@@ -1,38 +1,58 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnChanges, Input, NgZone } from '@angular/core';
 import { Contact } from './contact.model';
-import { NgbModal, ModalDismissReasons } from '@ng-bootstrap/ng-bootstrap';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import * as _ from 'lodash';
 
 @Component({
   selector: 'app-contact',
   templateUrl: './contact.component.html',
   styleUrls: ['./contact.component.scss']
 })
-export class ContactComponent implements OnInit {
+export class ContactComponent implements OnChanges {
 
-  @Input() contact: Contact;
-  closeResult: string;
+  @Input() contact: Contact = {
+    name: '',
+    email: '',
+    phone: '',
+    address: ''
+  };
+  editContact: Contact = {
+    name: '',
+    email: '',
+    phone: '',
+    address: ''
+  };
+  modalTitle = {
+    edit: 'Edit Contact',
+    delete: 'Delete Contact'
+  };
 
   constructor(private modalService: NgbModal) { }
 
-  ngOnInit() {
+  ngOnChanges() {
+    this.resetEditForm();
   }
 
-  open(content) {
-    this.modalService.open(content, { ariaLabelledBy: 'modal-basic-title' }).result.then((result) => {
-      this.closeResult = `Closed with: ${result}`;
-    }, (reason) => {
-      this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
-    });
+  open(editContact) {
+    this.modalService.open(editContact).result
+      .then((result) => {
+        this.saveEditForm();
+      }, (reason) => {
+        this.resetEditForm();
+      });
   }
 
-  private getDismissReason(reason: any): string {
-    if (reason === ModalDismissReasons.ESC) {
-      return 'by pressing ESC';
-    } else if (reason === ModalDismissReasons.BACKDROP_CLICK) {
-      return 'by clicking on a backdrop';
-    } else {
-      return `with: ${reason}`;
-    }
+  resetEditForm() {
+    this.editContact.name = this.contact.name;
+    this.editContact.email = this.contact.email;
+    this.editContact.phone = this.contact.phone;
+    this.editContact.address = this.contact.address;
   }
 
+  saveEditForm() {
+    this.contact.name = this.editContact.name;
+    this.contact.email = this.editContact.email;
+    this.contact.phone = this.editContact.phone;
+    this.contact.address = this.editContact.address;
+  }
 }
