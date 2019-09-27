@@ -16,12 +16,14 @@
                 </form>
             </div>
 
-            <button type="button" class="btn btn-outline-primary mx-1" (click)="open(addContactModal)">
-                <i class="fa fa-plus"></i>
+            <button type="button" class="btn btn-primary mx-1" (click)="open(addContactModal)">
+              Add Contact
+              <i class="fa fa-plus"></i>
             </button>
 
-            <button type="button" class="btn btn-outline-primary mx-1" (click)="open(logoutModal)">
-                <i class="fa fa-sign-out"></i>
+            <button type="button" class="btn btn-primary mx-1" (click)="open(logoutModal)">
+              Sign Out
+              <i class="fa fa-sign-out"></i>
             </button>
         </nav>
 
@@ -34,7 +36,7 @@
 </div>
 
 <ng-template #addContactModal let-modal>
-    <div class="modal-header">
+  <div class="modal-header">
         <h4 class="modal-title" id="modal-basic-title">{{modalTitle.addContact}}</h4>
         <button type="button" class="close" (click)="modal.dismiss('addContact')">
             <span>&times;</span>

@@ -1,0 +1,22 @@
+.navbar-brand {
+  color: #ffc904;
+
+}
+
+.btn-primary{
+    background-color: black;
+    border-color: black;
+  }
+
+.btn-primary:hover{
+  background-color: #ffc900 !important;
+  .fa-plus, .fa-sign-out {
+    color: white;
+  }
+}
+
+.btn-primary:active,
+.btn-primary:focus {
+    background-color: #ffc904!important;
+    border-color: #ffc904 !important;
+}
