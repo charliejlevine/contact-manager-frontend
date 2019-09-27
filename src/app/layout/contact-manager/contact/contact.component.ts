@@ -1,7 +1,6 @@
-import { Component, OnChanges, Input, NgZone } from '@angular/core';
+import { Component, OnChanges, Input } from '@angular/core';
 import { Contact } from './contact.model';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
-import * as _ from 'lodash';
 
 @Component({
   selector: 'app-contact',
