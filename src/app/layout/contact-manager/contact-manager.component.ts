@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Contact } from './contact/contact.model';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-contact-manager',
@@ -47,9 +48,13 @@ export class ContactManagerComponent implements OnInit {
     logout: 'Logout'
   };
 
-  constructor(private modalService: NgbModal) { }
+  constructor(private modalService: NgbModal,
+              private router: Router) { }
 
   ngOnInit() {
+    if (!localStorage.getItem('userId')) {
+      this.router.navigate(['/login']);
+    }
   }
 
   open(modal) {
@@ -62,7 +67,8 @@ export class ContactManagerComponent implements OnInit {
   }
 
   logout() {
-    console.log('logout');
+    localStorage.removeItem('userId');
+    this.router.navigate(['/login']);
   }
 
   addContact() {
