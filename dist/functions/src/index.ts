@@ -48,8 +48,7 @@ const ContactSchema = new Schema({
 		type: mongoose.Schema.Types.ObjectId,
 		required: true,
 	},
-	firstname: String,
-	lastname: String,
+	name: String,
 	phone: String,
 	email: String,
 	address: String,
@@ -62,8 +61,60 @@ const ContactSchema = new Schema({
 const User = mongoose.model('User', UserSchema);
 const Contact = mongoose.model('Contact', ContactSchema);
 
-export const deleteContact = (req: any, res: any) => {
-	const contactId = req.body.contactId;
+// Edit contact.
+app.patch('/api/contact', (req, res) => {
+    const contactId = req.body.contactId;
+
+    if (typeof contactId === 'undefined') {
+		res.json({message: "Contact ID needed to edit contact.", contact: ""});
+	} else {
+        Contact.findById(contactId, function (err, contact) {
+            if (err) {
+                res.json({message: "Could not find contact.", contact: ""})
+            } else {
+                let info = {
+                    name: (contact as any).name,
+                    phone: (contact as any).phone,
+                    email: (contact as any).email,
+                    address: (contact as any).address,
+                    notes: (contact as any).notes
+                }
+                
+                if (req.body.name !== 'undefined') {
+                    info.name = req.body.name;
+                }
+
+                if (req.body.phone !== 'undefined') {
+                    info.phone = req.body.phone;
+                }
+
+                if (req.body.email !== 'undefined') {
+                    info.email = req.body.email;
+                }
+
+                if (req.body.address !== 'undefined') {
+                    info.address = req.body.address;
+                }
+
+                if (req.body.notes !== 'undefined') {
+                    info.notes = req.body.notes;
+                }
+
+                Contact.findByIdAndUpdate(contactId, info, function(error, contact) {
+                    if (err) {
+                        res.json({message: "ERROR: Couldn't update contact.", contact: ""});
+                    } else {
+                        res.json({message: "Successfully updated contact", contact: contact});
+                    }
+                });
+            }
+        });
+    }
+});
+
+// Delete contact.
+app.delete('/api/contact', (req, res) => {
+    const contactId = req.body.contactId;
 
 	if (typeof contactId === 'undefined') {
 		res.json({message: "Contact ID needed to delete contact."});
@@ -76,29 +127,31 @@ export const deleteContact = (req: any, res: any) => {
 			}
 		});
 	}
-}
+});
 
-export const getAllContacts = (req: any, res: any) => {
-	const userId = req.body.id;
+// Get All Contacts.
+app.post('/api/contact', (req, res) => {
+    const userId = req.body.userId;
 
 	if (typeof userId === 'undefined') {
-		res.json({message: "ID needed to get contacts."});
+		res.json({message: "ID needed to get contacts.", contacts: ""});
 	} else {
 		Contact.find({userId: userId}).then((contacts) => {
 			res.json({messsage: "Getting all contacts successfully.", contacts: contacts});
 		}).catch(err => {
-			console.log(err);
+			res.json({message: "Error trying to get all the contacts.", contacts: ""});
 		});
 	}
-}
+});
 
-export const addNewContact = (req: any, res: any) => {
-	const userId = req.body.id;
+// Add New Contact.
+app.put('/api/contact', (req, res) => {
+    const userId = req.body.id;
 
 	if (typeof userId === 'undefined') {
 		res.json({message: "ID needed to add contact."});
 	} else {
-		const info = [req.body.firstname, req.body.lastname, req.body.phone, 
+		const info = [req.body.name, req.body.phone, 
 			req.body.email, req.body.address, req.body.notes];
 		
 		for (let i = 0; i < info.length; i++) {
@@ -109,12 +162,11 @@ export const addNewContact = (req: any, res: any) => {
 		const newContact = new Contact({
 			_id: new mongoose.Types.ObjectId,
 			userId: userId,
-			firstname: info[0],
-			lastname: info[1],
-			phone: info[2],
-			email: info[3],
-			address: info[4],
-			notes: info[5]
+			name: info[0],
+			phone: info[1],
+			email: info[2],
+			address: info[3],
+			notes: info[4]
 		});
 
 		newContact.save((err, user) => {
@@ -127,10 +179,11 @@ export const addNewContact = (req: any, res: any) => {
 			console.log(err);
 		});
 	}
-}
+});
 
-export const loginUser = (req: any, res: any) => {
-	const username = req.body.username;
+// Login User.
+app.post('/api/user', (req, res) => {
+    const username = req.body.username;
 	const password = req.body.password;
 
 	if (typeof username === 'undefined') {
@@ -150,15 +203,10 @@ export const loginUser = (req: any, res: any) => {
 			}
 		});
 	}
-}
+});
 
-// Routes 
-// app.route('/api/user').put(addNewUser).post(loginUser);
-// app.route('/api/contact').put(addNewContact).post(getAllContacts).delete(deleteContact);
-
+// Register new user.
 app.put('/api/user', (req, res) => {
-
-
     let newUser = new User({
 		_id: new mongoose.Types.ObjectId,
 		username: req.body.username,
