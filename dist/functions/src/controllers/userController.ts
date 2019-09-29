@@ -1,13 +1,11 @@
-import mongoose from 'mongoose';
-import { UserSchema } from '../models/userModels';
-import { ContactSchema } from '../models/userModels';
-
+import * as mongoose from 'mongoose';
+import { UserSchema, ContactSchema } from '../models/userModels';
 
 const User = mongoose.model('User', UserSchema);
 const Contact = mongoose.model('Contact', ContactSchema);
 
-export const deleteContact = (req, res) => {
-	let contactId = req.body.contactId;
+export const deleteContact = (req: any, res: any) => {
+	const contactId = req.body.contactId;
 
 	if (typeof contactId === 'undefined') {
 		res.json({message: "Contact ID needed to delete contact."});
@@ -22,25 +20,27 @@ export const deleteContact = (req, res) => {
 	}
 }
 
-export const getAllContacts = (req, res) => {
-	let userId = req.body.id;
+export const getAllContacts = (req: any, res: any) => {
+	const userId = req.body.id;
 
 	if (typeof userId === 'undefined') {
 		res.json({message: "ID needed to get contacts."});
 	} else {
 		Contact.find({userId: userId}).then((contacts) => {
 			res.json({messsage: "Getting all contacts successfully.", contacts: contacts});
+		}).catch(err => {
+			console.log(err);
 		});
 	}
 }
 
-export const addNewContact = (req, res) => {
-	let userId = req.body.id;
+export const addNewContact = (req: any, res: any) => {
+	const userId = req.body.id;
 
 	if (typeof userId === 'undefined') {
 		res.json({message: "ID needed to add contact."});
 	} else {
-		let info = [req.body.firstname, req.body.lastname, req.body.phone, 
+		const info = [req.body.firstname, req.body.lastname, req.body.phone, 
 			req.body.email, req.body.address, req.body.notes];
 		
 		for (let i = 0; i < info.length; i++) {
@@ -48,7 +48,7 @@ export const addNewContact = (req, res) => {
 				info[i] = "";
 		}
 
-		let newContact = new Contact({
+		const newContact = new Contact({
 			_id: new mongoose.Types.ObjectId,
 			userId: userId,
 			firstname: info[0],
@@ -65,20 +65,22 @@ export const addNewContact = (req, res) => {
 			} else {
 				res.send(user);
 			}
+		}).catch(err => {
+			console.log(err);
 		});
 	}
 }
 
-export const loginUser = (req, res) => {
-	let username = req.body.username;
-	let password = req.body.password;
+export const loginUser = (req: any, res: any) => {
+	const username = req.body.username;
+	const password = req.body.password;
 
 	if (typeof username === 'undefined') {
 		res.json({message: "Username required to login.", id: ""});
 	} else if (typeof password === 'undefined') {
 		res.json({message: "Password required to login.", id: ""});
 	} else {
-		User.findOne({'username' : username}, function (err, user) {
+		User.findOne({'username' : username}, function (err, user: any) {
 			if (err) {
 				res.json({message: "Username does not exist", id: ""});
 			} else {
@@ -92,7 +94,7 @@ export const loginUser = (req, res) => {
 	}
 }
 
-export const addNewUser = (req, res) => {
+export const addNewUser = (req: any, res: any) => {
 	let newUser = new User({
 		_id: new mongoose.Types.ObjectId,
 		username: req.body.username,
@@ -139,5 +141,7 @@ export const addNewUser = (req, res) => {
 				id: user._id
 			});
 		}
+	}).catch(err => {
+		console.log(err);
 	});
 };
