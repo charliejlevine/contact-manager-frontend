@@ -143,10 +143,10 @@ app.post('/api/contact', (req, res) => {
 
 // Add New Contact.
 app.put('/api/contact', (req, res) => {
-    const userId = req.body.id;
+    const userId = req.body.userId;
 
 	if (typeof userId === 'undefined') {
-		res.json({message: "ID needed to add contact.", user: ""});
+		res.json({message: "ID needed to add contact.", contact: ""});
 	} else {
 		const info = [req.body.name, req.body.phone, 
 			req.body.email, req.body.address, req.body.notes];
@@ -168,11 +168,13 @@ app.put('/api/contact', (req, res) => {
 
 		newContact.save().catch(err => {
             if (err) {
-				res.json({message: "Unknown error", user: ""});
+				res.json({message: "Unknown error", contact: ""});
 			} else {
-				res.send({message: "Successfully added user.", user: newContact});
+				res.json({message: "Successfully added user.", contact: newContact});
 			}
-		});
+        });
+        
+        res.json({message: "Successfully added user.", contact: newContact});
 	}
 });
 
