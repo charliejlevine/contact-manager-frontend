@@ -108,7 +108,7 @@ export class LoginComponent implements OnInit {
       )
       .subscribe(() => {
         this.isLoading = false;
-        this.isSignUp = false;
+        this.toSignIn();
         this.loginInfo.username = this.registerInfo.username;
         this.loginInfo.password = this.registerInfo.password;
       }, error => {

@@ -13,7 +13,7 @@ export class AuthService {
   constructor(private http: HttpClient) { }
 
   login(loginInfo: LoginInfo) {
-    return this.http.put(`${this.url}/api/user/login`, loginInfo);
+    return this.http.post(`${this.url}/api/user`, loginInfo);
   }
 
   register(registerInfo: RegisterInfo) {
