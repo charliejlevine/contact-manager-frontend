@@ -4,7 +4,7 @@ import { LoginComponent } from './layout/login/login.component';
 import { ContactManagerComponent } from './layout/contact-manager/contact-manager.component';
 
 const routes: Routes = [
-  { path: '', redirectTo: 'login', pathMatch: 'full' },
+  { path: '', redirectTo: 'home', pathMatch: 'full' },
   { path: 'login', component: LoginComponent },
   { path: 'home', component: ContactManagerComponent }
 ];

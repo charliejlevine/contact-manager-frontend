@@ -80,7 +80,7 @@ export class LoginComponent implements OnInit {
           const storedUser = JSON.stringify(this.loginInfo);
           localStorage.setItem('user', storedUser);
         }
-        localStorage.setItem('userId', message.id.toString());
+        localStorage.setItem('userId', message.id);
         this.router.navigate(['/home']);
         this.isLoading = false;
       }, error => {

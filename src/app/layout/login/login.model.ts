@@ -10,7 +10,7 @@ export interface RegisterInfo {
 }
 
 export interface LoginMessage {
-    id: number;
+    id: string;
     message: string;
 }
 
