@@ -2,7 +2,7 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
 import { NgForm } from '@angular/forms';
 import { AuthService } from 'src/app/services/auth.service';
-import { LoginInfo, RegisterInfo } from './login.model';
+import { LoginInfo, RegisterInfo, LoginMessage } from './login.model';
 import { finalize } from 'rxjs/operators';
 
 @Component({
@@ -46,10 +46,6 @@ export class LoginComponent implements OnInit {
     this.displayedTitle = this.title.signIn;
     const storedUser = localStorage.getItem('user');
     this.loginInfo = storedUser ? JSON.parse(storedUser) : this.loginInfo;
-    this.authService.helloworld()
-      .subscribe((test: {message: string}) => {
-        this.displayedTitle = test.message;
-      });
   }
 
   toSignUp() {
@@ -79,11 +75,12 @@ export class LoginComponent implements OnInit {
           this.isLoading = false;
         })
       )
-      .subscribe(() => {
+      .subscribe((message: LoginMessage) => {
         if (this.rememberMe) {
           const storedUser = JSON.stringify(this.loginInfo);
           localStorage.setItem('user', storedUser);
         }
+        localStorage.setItem('userId', message.id);
         this.router.navigate(['/home']);
         this.isLoading = false;
       }, error => {
@@ -108,7 +105,7 @@ export class LoginComponent implements OnInit {
       )
       .subscribe(() => {
         this.isLoading = false;
-        this.isSignUp = false;
+        this.toSignIn();
         this.loginInfo.username = this.registerInfo.username;
         this.loginInfo.password = this.registerInfo.password;
       }, error => {

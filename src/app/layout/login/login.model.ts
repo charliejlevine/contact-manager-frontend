@@ -8,3 +8,12 @@ export interface RegisterInfo {
     password: string;
     email: string;
 }
+
+export interface LoginMessage {
+    id: string;
+    message: string;
+}
+
+export interface RegisterMessage {
+    message: string;
+}
