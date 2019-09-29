@@ -3,6 +3,7 @@ import * as express from 'express';
 import * as mongoose from 'mongoose';
 import * as bodyParser from 'body-parser';
 import * as uniqueValidator from 'mongoose-unique-validator';
+import { user } from 'firebase-functions/lib/providers/auth';
 
 const app = express();
 
@@ -97,11 +98,11 @@ app.patch('/api/contact', (req, res) => {
                     info.notes = req.body.notes;
                 }
 
-                Contact.findByIdAndUpdate(contactId, info, function(error, contact) {
+                Contact.findByIdAndUpdate(contactId, info, function(error, newContact) {
                     if (err) {
                         res.json({message: "ERROR: Couldn't update contact.", contact: ""});
                     } else {
-                        res.json({message: "Successfully updated contact", contact: contact});
+                        res.json({message: "Successfully updated contact", contact: newContact});
                     }
                 });
             }
@@ -146,7 +147,7 @@ app.put('/api/contact', (req, res) => {
     const userId = req.body.id;
 
 	if (typeof userId === 'undefined') {
-		res.json({message: "ID needed to add contact."});
+		res.json({message: "ID needed to add contact.", user: ""});
 	} else {
 		const info = [req.body.name, req.body.phone, 
 			req.body.email, req.body.address, req.body.notes];
@@ -166,14 +167,12 @@ app.put('/api/contact', (req, res) => {
 			notes: info[4]
 		});
 
-		newContact.save((err, user) => {
-			if (err) {
-				res.json({message: "Unknown error"});
+		newContact.save().catch(err => {
+            if (err) {
+				res.json({message: "Unknown error", user: ""});
 			} else {
-				res.send(user);
+				res.send({message: "Successfully added user.", user: user});
 			}
-		}).catch(err => {
-			console.log(err);
 		});
 	}
 });
