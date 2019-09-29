@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Contact } from './contact/contact.model';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { Router } from '@angular/router';
+import { ContactManagerService } from 'src/app/services/contact-manager.service';
 
 @Component({
   selector: 'app-contact-manager',
@@ -41,20 +42,45 @@ export class ContactManagerComponent implements OnInit {
     name: '',
     email: '',
     phone: '',
-    address: ''
+    address: '',
+    notes: ''
   };
   modalTitle = {
     addContact: 'Add Contact',
     logout: 'Logout'
   };
+  userId: string;
 
-  constructor(private modalService: NgbModal,
+  constructor(private contactService: ContactManagerService,
+              private modalService: NgbModal,
               private router: Router) { }
 
   ngOnInit() {
-    if (!localStorage.getItem('userId')) {
+    const userId = localStorage.getItem('userId');
+    if (!userId) {
       this.router.navigate(['/login']);
+    } else {
+      this.userId = userId;
+      this.getContacts();
     }
+  }
+
+  getContacts() {
+    this.contactService.getContacts(this.userId)
+      .subscribe(() => {
+        //
+      });
+  }
+
+  addContact() {
+    const body = {
+      id: this.userId,
+      ...this.addContactForm
+    };
+    this.contactService.addContact(body)
+      .subscribe((res: {contacts: any}) => {
+        this.contacts = res.contacts;
+      });
   }
 
   open(modal) {
@@ -69,10 +95,6 @@ export class ContactManagerComponent implements OnInit {
   logout() {
     localStorage.removeItem('userId');
     this.router.navigate(['/login']);
-  }
-
-  addContact() {
-    console.log('add contact');
   }
 
   resetAddForm() {

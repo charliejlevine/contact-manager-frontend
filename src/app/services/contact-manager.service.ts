@@ -1,7 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Observable, Subject, of } from 'rxjs';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { LoginInfo, RegisterInfo } from '../layout/login/login.model';
+import { HttpClient } from '@angular/common/http';
 
 @Injectable({
   providedIn: 'root'
@@ -12,15 +10,11 @@ export class ContactManagerService {
 
   constructor(private http: HttpClient) { }
 
-  endpoint1(loginInfo: LoginInfo) {
-    return this.http.put(`${this.url}/api/user/login`, loginInfo);
+  getContacts(userId: string) {
+    return this.http.post(`${this.url}/api/contact`, { id: userId });
   }
 
-  endpoint2(registerInfo: RegisterInfo) {
-    return this.http.put(`${this.url}/api/user`, registerInfo);
-  }
-
-  endpoint3() {
-    return this.http.get(`${this.url}/api/helloworld`);
+  addContact(body: any) {
+    return this.http.put(`${this.url}/api/contact`, body);
   }
 }

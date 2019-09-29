@@ -13,13 +13,15 @@ export class ContactComponent implements OnChanges {
     name: '',
     email: '',
     phone: '',
-    address: ''
+    address: '',
+    notes: ''
   };
   editContact: Contact = {
     name: '',
     email: '',
     phone: '',
-    address: ''
+    address: '',
+    notes: ''
   };
   modalTitle = {
     edit: 'Edit Contact',
