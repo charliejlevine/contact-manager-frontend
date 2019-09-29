@@ -143,7 +143,7 @@ app.post('/api/contact', (req, res) => {
 
 // Add New Contact.
 app.put('/api/contact', (req, res) => {
-    const userId = req.body.id;
+    const userId = req.body.userId;
 
 	if (typeof userId === 'undefined') {
 		res.json({message: "ID needed to add contact.", contact: ""});
@@ -172,7 +172,9 @@ app.put('/api/contact', (req, res) => {
 			} else {
 				res.json({message: "Successfully added user.", contact: newContact});
 			}
-		});
+        });
+        
+        res.json({message: "Successfully added user.", contact: newContact});
 	}
 });
 
