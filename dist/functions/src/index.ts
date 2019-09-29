@@ -1,9 +1,11 @@
 import * as functions from 'firebase-functions';
 import * as express from 'express';
+import * as mongoose from 'mongoose';
+import * as bodyParser from 'body-parser';
+import * as uniqueValidator from 'mongoose-unique-validator';
 
 const app = express();
 
-<<<<<<< HEAD
 // MongoDB connection.
 const URI = "mongodb+srv://admin:password321@maincluster-bmnhf.mongodb.net/test?retryWrites=true&w=majority";
 mongoose.connect(URI, { useNewUrlParser: true, useUnifiedTopology: true }).catch(err => {
@@ -96,7 +98,7 @@ app.patch('/api/contact', (req, res) => {
                 }
 
                 Contact.findByIdAndUpdate(contactId, info, function(error, contact) {
-                    if (error) {
+                    if (err) {
                         res.json({message: "ERROR: Couldn't update contact.", contact: ""});
                     } else {
                         res.json({message: "Successfully updated contact", contact: contact});
@@ -220,8 +222,6 @@ app.put('/api/user', (req, res) => {
 	});
 });
 
-=======
->>>>>>> ded00c23868ffe7e2d597005100ecf70ee45b65e
 app.get('/api/helloworld', (req, res) => {
     res.json({
         message: 'hello world'
