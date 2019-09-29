@@ -3,7 +3,6 @@ import * as express from 'express';
 import * as mongoose from 'mongoose';
 import * as bodyParser from 'body-parser';
 import * as uniqueValidator from 'mongoose-unique-validator';
-import { user } from 'firebase-functions/lib/providers/auth';
 
 const app = express();
 
@@ -171,7 +170,7 @@ app.put('/api/contact', (req, res) => {
             if (err) {
 				res.json({message: "Unknown error", user: ""});
 			} else {
-				res.send({message: "Successfully added user.", user: user});
+				res.send({message: "Successfully added user.", user: newContact});
 			}
 		});
 	}
