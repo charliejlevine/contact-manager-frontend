@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
+import { Contact } from '../layout/contact-manager/contact/contact.model';
 
 @Injectable({
   providedIn: 'root'
@@ -10,11 +11,19 @@ export class ContactManagerService {
 
   constructor(private http: HttpClient) { }
 
-  getContacts(userId: string) {
-    return this.http.post(`${this.url}/api/contact`, { id: userId });
+  getContacts(body: { userId: string }) {
+    return this.http.post(`${this.url}/api/contact`, body);
   }
 
-  addContact(body: any) {
+  deleteContact(body: { contactId: string }) {
+    return this.http.request('delete', `${this.url}/api/contact`, { body });
+  }
+
+  addContact(body: Contact) {
     return this.http.put(`${this.url}/api/contact`, body);
+  }
+
+  editContact(body: Contact) {
+    return this.http.patch(`${this.url}/api/contact`, body);
   }
 }

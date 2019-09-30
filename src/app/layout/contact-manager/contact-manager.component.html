@@ -29,7 +29,7 @@
 
         <ul class="list-group pull-down" style="margin-top: 56px" id="contact-list">
             <li *ngFor="let contact of contacts" class="list-group-item">
-                <app-contact [contact]="contact"></app-contact>
+                <app-contact [contact]="contact" (getContactsOutput)="getContacts()"></app-contact>
             </li>
         </ul>
     </div>

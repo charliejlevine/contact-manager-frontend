@@ -12,38 +12,10 @@ import { Router } from '@angular/router';
 })
 export class ContactManagerComponent implements OnInit {
 
-  contacts = [
-    {
-      name: 'Charlie Levine',
-      email: 'charlie@example.com',
-      phone: '(123) 456-7890',
-      address: '4000 Central Florida Blvd',
-      notes: 'something cool'
-    },
-    {
-      name: 'Jeremy Dantes',
-      email: 'jeremy@example.com',
-      phone: '(123) 456-7890',
-      address: '4000 Central Florida Blvd',
-      notes: 'something cool'
-    },
-    {
-      name: 'Mark Trinidad',
-      email: 'mark@example.com',
-      phone: '(123) 456-7890',
-      address: '4000 Central Florida Blvd',
-      notes: 'something cool'
-    },
-    {
-      name: 'Nelson Torres',
-      email: 'nelson@example.com',
-      phone: '(123) 456-7890',
-      address: '4000 Central Florida Blvd',
-      notes: 'something cool'
-    }
-  ];
+  contacts = [];
 
   addContactForm: Contact = {
+    _id: '',
     name: '',
     email: '',
     phone: '',
@@ -71,20 +43,23 @@ export class ContactManagerComponent implements OnInit {
   }
 
   getContacts() {
-    this.contactService.getContacts(this.userId)
-      .subscribe(() => {
-        //
+    const body = {
+      userId: this.userId,
+    };
+    this.contactService.getContacts(body)
+      .subscribe((res: any) => {
+        this.contacts = res.contacts;
       });
   }
 
   addContact() {
     const body = {
-      id: this.userId,
+      userId: this.userId,
       ...this.addContactForm
     };
     this.contactService.addContact(body)
-      .subscribe((res: {contacts: any}) => {
-        this.contacts = res.contacts;
+      .subscribe((res: any) => {
+        this.getContacts();
       });
   }
 
