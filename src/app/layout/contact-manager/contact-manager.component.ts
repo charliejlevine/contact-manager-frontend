@@ -57,8 +57,9 @@ export class ContactManagerComponent implements OnInit {
       userId: this.userId,
       ...this.addContactForm
     };
+    this.resetAddForm();
     this.contactService.addContact(body)
-      .subscribe((res: any) => {
+      .subscribe(() => {
         this.getContacts();
       });
   }
