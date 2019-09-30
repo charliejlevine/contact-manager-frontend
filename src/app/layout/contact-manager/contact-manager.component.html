@@ -11,7 +11,11 @@
                                 <i class="fa fa-search"></i>
                             </span>
                         </div>
-                        <input type="text" class="form-control input-lg" placeholder="Search Contacts...">
+                        <input type="text" [(ngModel)]="search" name="search" class="form-control input-lg"
+                            placeholder="Search Contacts...">
+                        <div class="input-group-append">
+                            <button (click)="searchContacts()" class="btn btn-primary" type="button">Button</button>
+                        </div>
                     </div>
                 </form>
             </div>

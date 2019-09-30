@@ -27,6 +27,7 @@ export class ContactManagerComponent implements OnInit {
     logout: 'Logout'
   };
   userId: string;
+  search = '';
 
   constructor(private contactService: ContactManagerService,
               private modalService: NgbModal,
@@ -47,6 +48,16 @@ export class ContactManagerComponent implements OnInit {
       userId: this.userId,
     };
     this.contactService.getContacts(body)
+      .subscribe((res: any) => {
+        this.contacts = res.contacts;
+      });
+  }
+
+  searchContacts() {
+    const body = {
+      userId: this.userId,
+    };
+    this.contactService.searchContacts(body, this.search)
       .subscribe((res: any) => {
         this.contacts = res.contacts;
       });

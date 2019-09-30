@@ -49,7 +49,10 @@ export class LoginComponent implements OnInit {
     if (userId) {
       this.router.navigate(['/home']);
     }
-    this.loginInfo = storedUser ? JSON.parse(storedUser) : this.loginInfo;
+    if (storedUser) {
+      this.rememberMe = true;
+      this.loginInfo = JSON.parse(storedUser);
+    }
   }
 
   toSignUp() {
@@ -83,12 +86,14 @@ export class LoginComponent implements OnInit {
         if (this.rememberMe) {
           const storedUser = JSON.stringify(this.loginInfo);
           localStorage.setItem('user', storedUser);
+        } else {
+          localStorage.removeItem('user');
         }
         localStorage.setItem('userId', message.id);
         this.router.navigate(['/home']);
         this.isLoading = false;
       }, error => {
-        this.displayedError = error.message;
+        this.displayedError = error.error;
       });
   }
 
@@ -113,7 +118,7 @@ export class LoginComponent implements OnInit {
         this.loginInfo.username = this.registerInfo.username;
         this.loginInfo.password = this.registerInfo.password;
       }, error => {
-        this.displayedError = error.message;
+        this.displayedError = error.error;
       });
   }
 
