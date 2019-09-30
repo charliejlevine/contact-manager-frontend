@@ -1,4 +1,5 @@
-import { Component, OnChanges, Input } from '@angular/core';
+import { Component, Input, OnChanges } from '@angular/core';
+
 import { Contact } from './contact.model';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 
@@ -48,6 +49,7 @@ export class ContactComponent implements OnChanges {
     this.editContact.email = this.contact.email;
     this.editContact.phone = this.contact.phone;
     this.editContact.address = this.contact.address;
+    this.editContact.notes = this.contact.notes;
   }
 
   saveContact() {
@@ -55,6 +57,7 @@ export class ContactComponent implements OnChanges {
     this.contact.email = this.editContact.email;
     this.contact.phone = this.editContact.phone;
     this.contact.address = this.editContact.address;
+    this.contact.notes = this.editContact.notes;
   }
 
   deleteContact() {

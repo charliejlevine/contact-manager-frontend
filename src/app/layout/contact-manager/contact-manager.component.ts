@@ -1,8 +1,9 @@
 import { Component, OnInit } from '@angular/core';
+
 import { Contact } from './contact/contact.model';
+import { ContactManagerService } from 'src/app/services/contact-manager.service';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { Router } from '@angular/router';
-import { ContactManagerService } from 'src/app/services/contact-manager.service';
 
 @Component({
   selector: 'app-contact-manager',
@@ -16,25 +17,29 @@ export class ContactManagerComponent implements OnInit {
       name: 'Charlie Levine',
       email: 'charlie@example.com',
       phone: '(123) 456-7890',
-      address: '4000 Central Florida Blvd'
+      address: '4000 Central Florida Blvd',
+      notes: 'something cool'
     },
     {
       name: 'Jeremy Dantes',
       email: 'jeremy@example.com',
       phone: '(123) 456-7890',
-      address: '4000 Central Florida Blvd'
+      address: '4000 Central Florida Blvd',
+      notes: 'something cool'
     },
     {
       name: 'Mark Trinidad',
       email: 'mark@example.com',
       phone: '(123) 456-7890',
-      address: '4000 Central Florida Blvd'
+      address: '4000 Central Florida Blvd',
+      notes: 'something cool'
     },
     {
       name: 'Nelson Torres',
       email: 'nelson@example.com',
       phone: '(123) 456-7890',
-      address: '4000 Central Florida Blvd'
+      address: '4000 Central Florida Blvd',
+      notes: 'something cool'
     }
   ];
 
@@ -102,6 +107,7 @@ export class ContactManagerComponent implements OnInit {
     this.addContactForm.email = '';
     this.addContactForm.phone = '';
     this.addContactForm.address = '';
+    this.addContactForm.notes = '';
   }
 
 }
