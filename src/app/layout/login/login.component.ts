@@ -44,7 +44,11 @@ export class LoginComponent implements OnInit {
 
   ngOnInit() {
     this.displayedTitle = this.title.signIn;
+    const userId = localStorage.getItem('userId');
     const storedUser = localStorage.getItem('user');
+    if (userId) {
+      this.router.navigate(['/home']);
+    }
     this.loginInfo = storedUser ? JSON.parse(storedUser) : this.loginInfo;
   }
 
