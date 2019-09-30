@@ -72,7 +72,7 @@ app.post('/api/contact:query', (req, res) => {
         const regex = new RegExp(escapeRegex(req.params.query), 'gi');
         Contact.find({"name": regex, "userId": userId}, function (err, contacts) {
             if (err) {
-                res.status(500).json({message: "Unknown error trying to search"});
+                res.json({message: "Unknown error trying to search"});
             } else {
                 res.json({message: "Successfully searched for query", contacts: contacts});
             }
@@ -206,18 +206,18 @@ app.post('/api/user', (req, res) => {
 	const password = req.body.password;
 
 	if (!username) {
-		res.send(500).json({message: "Username required to login.", id: ""});
+		res.send(500).send("Username required to login.");
 	} else if (!password) {
-		res.send(500).json({message: "Password required to login.", id: ""});
+		res.send(500).send("Password required to login.");
 	} else {
 		User.findOne({'username' : username}, function (err, user: any) {
 			if (err) {
-				res.send(500).json({message: "Username does not exist", id: ""});
+				res.send(500).send("Username does not exist");
 			} else {
 				if (user.password === password) {
 					res.json({message: "Logged in", id: user._id});
 				} else {
-					res.send(500).json({message: "Incorrect password", id: ""});
+					res.send(500).send("Incorrect password");
 				}
 			}
 		});
