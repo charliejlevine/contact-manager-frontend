@@ -212,6 +212,8 @@ app.post('/api/user', (req, res) => {
 	} else {
 		User.findOne({'username' : username}, function (err, user: any) {
 			if (err) {
+				res.status(500).send("Server error");
+			} else if (!user) {
 				res.status(500).send("Username does not exist");
 			} else {
 				if (user.password === password) {
