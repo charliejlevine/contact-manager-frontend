@@ -62,7 +62,7 @@ const ContactSchema = new Schema({
 const User = mongoose.model('User', UserSchema);
 const Contact = mongoose.model('Contact', ContactSchema);
 
-app.post('/api/contact:query', (req, res) => {
+app.post('/api/contact/:query', (req, res) => {
     if (req.params.query) {
         if (!req.body.userId) {
             res.status(500).json({message: "User needed to search"});
@@ -87,11 +87,11 @@ app.patch('/api/contact', (req, res) => {
     const contactId = req.body.contactId;
 
     if (!contactId) {
-		res.send(500).json({message: "Contact ID needed to edit contact.", contact: ""});
+		res.status(500).json({message: "Contact ID needed to edit contact.", contact: ""});
 	} else {
         Contact.findById(contactId, function (err, contact) {
             if (err) {
-                res.send(500).json({message: "Could not find contact.", contact: ""})
+                res.status(500).json({message: "Could not find contact.", contact: ""})
             } else {
                 const info = {
                     name: (contact as any).name,
@@ -123,7 +123,7 @@ app.patch('/api/contact', (req, res) => {
 
                 Contact.findByIdAndUpdate(contactId, info, function(error, newContact) {
                     if (err) {
-                        res.send(500).json({message: "ERROR: Couldn't update contact.", contact: ""});
+                        res.status(500).json({message: "ERROR: Couldn't update contact.", contact: ""});
                     } else {
                         res.json({message: "Successfully updated contact", contact: newContact});
                     }
@@ -138,11 +138,11 @@ app.delete('/api/contact', (req, res) => {
     const contactId = req.body.contactId;
 
 	if (!contactId) {
-		res.send(500).json({message: "Contact ID needed to delete contact."});
+		res.status(500).json({message: "Contact ID needed to delete contact."});
 	} else {
 		Contact.findByIdAndDelete(contactId, function (err, contact) {
 			if (err) {
-				res.send(500).json({message: "Error trying to delete contact."});
+				res.status(500).json({message: "Error trying to delete contact."});
 			} else {
 				res.json({message: "Sucessfully deleted contact."});
 			}
@@ -155,12 +155,12 @@ app.post('/api/contact', (req, res) => {
     const userId = req.body.userId;
 
 	if (!userId) {
-		res.send(500).json({message: "ID needed to get contacts.", contacts: ""});
+		res.status(500).json({message: "ID needed to get contacts.", contacts: ""});
 	} else {
 		Contact.find({userId: userId}).then((contacts) => {
 			res.json({messsage: "Getting all contacts successfully.", contacts: contacts});
 		}).catch(err => {
-			res.send(500).json({message: "Error trying to get all the contacts.", contacts: ""});
+			res.status(500).json({message: "Error trying to get all the contacts.", contacts: ""});
 		});
 	}
 });
@@ -170,7 +170,7 @@ app.put('/api/contact', (req, res) => {
     const userId = req.body.userId;
 
 	if (!userId) {
-		res.send(500).json({message: "ID needed to add contact.", contact: ""});
+		res.status(500).json({message: "ID needed to add contact.", contact: ""});
 	} else {
 		const info = [req.body.name, req.body.phone, 
 			req.body.email, req.body.address, req.body.notes];
@@ -192,7 +192,7 @@ app.put('/api/contact', (req, res) => {
 
 		newContact.save().catch(err => {
             if (err) {
-				res.send(500).json({message: "Unknown error", contact: ""});
+				res.status(500).json({message: "Unknown error", contact: ""});
 			}
         });
         
@@ -206,18 +206,18 @@ app.post('/api/user', (req, res) => {
 	const password = req.body.password;
 
 	if (!username) {
-		res.send(500).send("Username required to login.");
+		res.status(500).send("Username required to login.");
 	} else if (!password) {
-		res.send(500).send("Password required to login.");
+		res.status(500).send("Password required to login.");
 	} else {
 		User.findOne({'username' : username}, function (err, user: any) {
 			if (err) {
-				res.send(500).send("Username does not exist");
+				res.status(500).send("Username does not exist");
 			} else {
 				if (user.password === password) {
 					res.json({message: "Logged in", id: user._id});
 				} else {
-					res.send(500).send("Incorrect password");
+					res.status(500).send("Incorrect password");
 				}
 			}
 		});
