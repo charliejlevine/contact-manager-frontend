@@ -7,15 +7,12 @@
                 <form class="inline">
                     <div class="input-group mx-1">
                         <div class="input-group-prepend">
-                            <span class="input-group-text">
+                            <button (click)="searchContacts()" class="btn btn-primary bg-search border-0" type="button">
                                 <i class="fa fa-search"></i>
-                            </span>
+                            </button>
                         </div>
                         <input type="text" [(ngModel)]="search" name="search" class="form-control input-lg"
                             placeholder="Search Contacts...">
-                        <div class="input-group-append">
-                            <button (click)="searchContacts()" class="btn btn-primary" type="button">Button</button>
-                        </div>
                     </div>
                 </form>
             </div>
