@@ -27,7 +27,7 @@ export class ContactManagerService {
     return this.http.patch(`${this.url}/api/contact`, body);
   }
 
-  searchContacts(body: { userId: string }, search: string) {
-    return this.http.post(`${this.url}/api/contact/${search}`, body);
+  searchContacts(body: { userId: string, search: string }) {
+    return this.http.post(`${this.url}/api/contact`, body);
   }
 }
