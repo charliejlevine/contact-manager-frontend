@@ -56,8 +56,9 @@ export class ContactManagerComponent implements OnInit {
   searchContacts() {
     const body = {
       userId: this.userId,
+      search: this.search
     };
-    this.contactService.searchContacts(body, this.search)
+    this.contactService.searchContacts(body)
       .subscribe((res: any) => {
         this.contacts = res.contacts;
       });

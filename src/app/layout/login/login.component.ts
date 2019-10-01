@@ -93,7 +93,7 @@ export class LoginComponent implements OnInit {
         this.router.navigate(['/home']);
         this.isLoading = false;
       }, error => {
-        this.displayedError = error.error;
+        this.displayedError = error.error.message;
       });
   }
 
@@ -118,7 +118,7 @@ export class LoginComponent implements OnInit {
         this.loginInfo.username = this.registerInfo.username;
         this.loginInfo.password = this.registerInfo.password;
       }, error => {
-        this.displayedError = error.error;
+        this.displayedError = error.error.message;
       });
   }
 
