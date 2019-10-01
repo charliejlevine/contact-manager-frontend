@@ -28,6 +28,6 @@ export class ContactManagerService {
   }
 
   searchContacts(body: { userId: string, search: string }) {
-    return this.http.post(`${this.url}/api/contact`, body);
+    return this.http.post(`${this.url}/api/contact/search`, body);
   }
 }
