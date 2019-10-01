@@ -63,7 +63,7 @@ const User = mongoose.model('User', UserSchema);
 const Contact = mongoose.model('Contact', ContactSchema);
 
 // Search contact.
-app.post('/api/contact/', (req, res) => {
+app.post('/api/contact/search', (req, res) => {
     if (req.body.search) {
         if (!req.body.userId) {
             res.status(500).json({message: "User needed to search"});
