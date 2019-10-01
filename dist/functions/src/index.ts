@@ -62,14 +62,15 @@ const ContactSchema = new Schema({
 const User = mongoose.model('User', UserSchema);
 const Contact = mongoose.model('Contact', ContactSchema);
 
-app.post('/api/contact/:query', (req, res) => {
-    if (req.params.query) {
+// Search contact.
+app.post('/api/contact/', (req, res) => {
+    if (req.body.search) {
         if (!req.body.userId) {
             res.status(500).json({message: "User needed to search"});
         }
 
         const userId = req.body.userId;
-        const regex = new RegExp(escapeRegex(req.params.query), 'gi');
+        const regex = new RegExp(escapeRegex(req.body.search), 'gi');
         Contact.find({"name": regex, "userId": userId}, function (err, contacts) {
             if (err) {
                 res.json({message: "Unknown error trying to search"});
@@ -206,20 +207,20 @@ app.post('/api/user', (req, res) => {
 	const password = req.body.password;
 
 	if (!username) {
-		res.status(500).send("Username required to login.");
+		res.status(500).json({message: "Username required to login."});
 	} else if (!password) {
-		res.status(500).send("Password required to login.");
+		res.status(500).json({message: "Password required to login."});
 	} else {
 		User.findOne({'username' : username}, function (err, user: any) {
 			if (err) {
-				res.status(500).send("Server error");
+				res.status(500).json({message: "Server error"});
 			} else if (!user) {
-				res.status(500).send("Username does not exist");
+				res.status(500).json({message: "Username does not exist"});
 			} else {
 				if (user.password === password) {
 					res.json({message: "Logged in", id: user._id});
 				} else {
-					res.status(500).send("Incorrect password");
+					res.status(500).json({message: "Incorrect password"});
 				}
 			}
 		});
@@ -241,7 +242,7 @@ app.put('/api/user', (req, res) => {
     if (req.body.email) {
         User.findOne({'email' : req.body.email}, function (err, user: any) {
 			if (user) {
-                res.status(500).send({message: "Email already exists"});
+                res.status(500).json({message: "Email already exists"});
             }
 		});
     } else {
