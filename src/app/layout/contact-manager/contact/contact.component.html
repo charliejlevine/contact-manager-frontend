@@ -1,7 +1,6 @@
 <div class="row w-100">
     <div class="col-12 col-sm-6 col-md-3 px-0">
-        <img [src]="imgURL" height="150" width="150"
-            class="rounded-circle mx-auto d-block img-fluid">
+        <img [src]="imgURL" height="150" width="150" class="rounded-circle mx-auto d-block img-fluid">
     </div>
 
     <div class="col-12 col-sm-6 col-md-9 text-center text-sm-left">
@@ -39,7 +38,7 @@
     <div class="modal-body">
         <form>
             <div class="form-group">
-                <label for="name">Name</label>
+                <label for="name">Name<span class="text-danger">*</span></label>
                 <div class="input-group">
                     <input type="text" name="name" [(ngModel)]="editContactForm.name" id="name" class="form-control"
                         autofocus>
@@ -73,7 +72,7 @@
         </form>
     </div>
     <div class="modal-footer">
-        <button type="button" class="btn btn-outline-dark" (click)="modal.close('edit')">Save</button>
+        <button type="button" [disabled]="!editContactForm.name" class="btn btn-outline-dark" (click)="modal.close('edit')">Save</button>
     </div>
 </ng-template>
 

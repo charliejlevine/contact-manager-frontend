@@ -47,7 +47,7 @@
         <p class="text-danger mb-1">{{displayedError}}</p>
         <form>
             <div class="form-group">
-                <label for="name">Name</label>
+                <label for="name">Name<span class="text-danger">*</span></label>
                 <div class="input-group">
                     <input type="text" name="name" [(ngModel)]="addContactForm.name" id="name" class="form-control"
                         autofocus>
@@ -81,7 +81,7 @@
         </form>
     </div>
     <div class="modal-footer">
-        <button type="button" class="btn btn-outline-dark" (click)="modal.close('addContact')">Save</button>
+        <button type="button" [disabled]="!addContactForm.name" class="btn btn-outline-dark" (click)="modal.close('addContact')">Save</button>
     </div>
 </ng-template>
 
