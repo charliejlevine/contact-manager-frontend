@@ -1,7 +1,7 @@
 .card-signin {
+  box-shadow: 0rem 0rem 4rem #000;
   border: 0;
   border-radius: 1rem;
-  box-shadow: 0 0.5rem 1rem 0 rgba(0, 0, 0, 0.1);
   background-color: #ffc904;
 }
 
@@ -117,4 +117,8 @@
   .form-label-group input:-ms-input-placeholder {
     color: #777;
   }
+}
+
+.bg-image {
+  filter: blur(0.2rem);
 }
