@@ -28,6 +28,7 @@ export class ContactManagerComponent implements OnInit {
   };
   userId: string;
   search = '';
+  displayedError = '';
 
   constructor(private contactService: ContactManagerService,
               private modalService: NgbModal,
@@ -65,6 +66,7 @@ export class ContactManagerComponent implements OnInit {
   }
 
   addContact() {
+    this.displayedError = '';
     const body = {
       userId: this.userId,
       ...this.addContactForm
@@ -73,6 +75,8 @@ export class ContactManagerComponent implements OnInit {
     this.contactService.addContact(body)
       .subscribe(() => {
         this.getContacts();
+      }, error => {
+        this.displayedError = error.error.message;
       });
   }
 
@@ -96,6 +100,7 @@ export class ContactManagerComponent implements OnInit {
     this.addContactForm.phone = '';
     this.addContactForm.address = '';
     this.addContactForm.notes = '';
+    this.displayedError = '';
   }
 
 }

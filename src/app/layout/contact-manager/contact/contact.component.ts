@@ -31,7 +31,7 @@ export class ContactComponent implements OnInit {
     delete: 'Delete Contact'
   };
   userId: string;
-  imgURL = 'assets/images/Sh5Nn9ur_400x400.jpg' as any;
+  imgURL = 'assets/images/Knightro.jpg';
 
   constructor(private modalService: NgbModal,
               private contactService: ContactManagerService) { }
@@ -39,18 +39,6 @@ export class ContactComponent implements OnInit {
   ngOnInit() {
     this.userId = localStorage.getItem('userId');
     this.resetEditForm();
-  }
-
-  setContactImage(files) {
-    if (files.length === 0) {
-      return;
-    }
-
-    const reader = new FileReader();
-    reader.readAsDataURL(files[0]);
-    reader.onload = () => {
-      this.imgURL = reader.result;
-    };
   }
 
   open(modal) {
