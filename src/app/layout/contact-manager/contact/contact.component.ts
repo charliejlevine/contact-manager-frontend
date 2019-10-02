@@ -34,7 +34,7 @@ export class ContactComponent implements OnInit {
   imgURL = 'assets/images/Knightro.jpg';
 
   constructor(private modalService: NgbModal,
-              private contactService: ContactManagerService) { }
+    private contactService: ContactManagerService) { }
 
   ngOnInit() {
     this.userId = localStorage.getItem('userId');
@@ -46,9 +46,7 @@ export class ContactComponent implements OnInit {
       .then((result) => {
         result === 'edit' ? this.editContact() : this.deleteContact();
       }, (reason) => {
-        if (reason === 'edit') {
-          this.resetEditForm();
-        }
+        this.resetEditForm();
       });
   }
 

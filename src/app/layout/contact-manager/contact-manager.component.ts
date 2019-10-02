@@ -30,8 +30,8 @@ export class ContactManagerComponent implements OnInit {
   search = '';
 
   constructor(private contactService: ContactManagerService,
-              private modalService: NgbModal,
-              private router: Router) { }
+    private modalService: NgbModal,
+    private router: Router) { }
 
   ngOnInit() {
     const userId = localStorage.getItem('userId');
@@ -81,7 +81,7 @@ export class ContactManagerComponent implements OnInit {
       .then((result) => {
         result === 'addContact' ? this.addContact() : this.logout();
       }, (reason) => {
-        if (reason === 'addContact') { this.resetAddForm(); }
+        this.resetAddForm();
       });
   }
 
