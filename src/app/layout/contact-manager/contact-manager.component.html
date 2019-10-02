@@ -1,3 +1,7 @@
+<div *ngIf="!contacts.length">
+    <img src="assets/images/sad-knight.jpg" class="img-fluid h-100 mx-auto bg-image">
+    <h1 class="centered w-100 text-center">You have no contacts. Please add some.</h1>
+</div>
 <div class="row">
     <div class="col">
         <nav class="navbar navbar-dark bg-dark fixed-top">
@@ -80,7 +84,8 @@
         </form>
     </div>
     <div class="modal-footer">
-        <button type="button" [disabled]="!addContactForm.name" class="btn btn-outline-dark" (click)="modal.close('addContact')">Add Contact</button>
+        <button type="button" [disabled]="!addContactForm.name" class="btn btn-outline-dark"
+            (click)="modal.close('addContact')">Add Contact</button>
     </div>
 </ng-template>
 

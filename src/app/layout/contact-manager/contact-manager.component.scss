@@ -5,7 +5,8 @@
   }
 }
 
-.fa-plus, .fa-sign-out {
+.fa-plus,
+.fa-sign-out {
   color: #ffc904;
 }
 
@@ -24,4 +25,22 @@
 
 .bg-search {
   background-color: #ffc900;
+}
+
+.bg-image {
+  position: fixed;
+  top: 0;
+  left: 0;
+
+  /* Preserve aspet ratio */
+  min-width: 100%;
+  min-height: 100%;
+}
+
+.centered {
+  position: absolute;
+  color: #ffffff;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
 }

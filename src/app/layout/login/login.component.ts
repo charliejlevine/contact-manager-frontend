@@ -26,7 +26,6 @@ export class LoginComponent implements OnInit {
   };
   isLoading = false;
   isSignUp = false;
-  rememberMe = false;
   displayedTitle = '';
   displayedError = '';
   title = {
@@ -48,10 +47,6 @@ export class LoginComponent implements OnInit {
     const storedUser = localStorage.getItem('user');
     if (userId) {
       this.router.navigate(['/home']);
-    }
-    if (storedUser) {
-      this.rememberMe = true;
-      this.loginInfo = JSON.parse(storedUser);
     }
   }
 
@@ -83,12 +78,6 @@ export class LoginComponent implements OnInit {
         })
       )
       .subscribe((message: LoginMessage) => {
-        if (this.rememberMe) {
-          const storedUser = JSON.stringify(this.loginInfo);
-          localStorage.setItem('user', storedUser);
-        } else {
-          localStorage.removeItem('user');
-        }
         localStorage.setItem('userId', message.id);
         this.router.navigate(['/home']);
         this.isLoading = false;

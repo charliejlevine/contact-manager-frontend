@@ -17,13 +17,8 @@
 
           <div class="form-label-group">
             <input type="password" name="password" [(ngModel)]="loginInfo.password" id="inputPassword"
-              class="form-control" placeholder="Password" required>
+              class="form-control mb-4" placeholder="Password" required>
             <label for="inputPassword">Password</label>
-          </div>
-
-          <div class="custom-control custom-checkbox mb-3">
-            <input type="checkbox" name="rememberMe" [(ngModel)]="rememberMe" class="custom-control-input" id="checkbox">
-            <label class="custom-control-label" for="checkbox">Remember me</label>
           </div>
 
           <button type="submit" [disabled]="isLoading" class="btn btn-lg btn-login btn-block text-uppercase">
