@@ -64,7 +64,7 @@ const Contact = mongoose.model('Contact', ContactSchema);
 
 // Search contact.
 app.post('/api/contact/search', (req, res) => {
-    if (req.body.search) {
+    if (req.body.search === "" || req.body.search) {
         if (!req.body.userId) {
             res.status(500).json({message: "User needed to search"});
         }
@@ -89,6 +89,8 @@ app.patch('/api/contact', (req, res) => {
 
     if (!contactId) {
 		res.status(500).json({message: "Contact ID needed to edit contact.", contact: ""});
+	} else if (!req.body.name) {
+		res.status(500).json({message: "Name required to edit contact.", contact: ""});
 	} else {
         Contact.findById(contactId, function (err, contact) {
             if (err) {
@@ -172,6 +174,8 @@ app.put('/api/contact', (req, res) => {
 
 	if (!userId) {
 		res.status(500).json({message: "ID needed to add contact.", contact: ""});
+	} else if (!req.body.name) {
+		res.status(500).json({message: "Name required to add contact.", contact: ""});
 	} else {
 		const info = [req.body.name, req.body.phone, 
 			req.body.email, req.body.address, req.body.notes];
